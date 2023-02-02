@@ -1,4 +1,4 @@
-#########Importer les modules necessaires########bon  toutou #
+#########Importer les modules necessaires########
 
 
 from tkinter import *
