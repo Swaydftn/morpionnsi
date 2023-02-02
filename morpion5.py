@@ -1,4 +1,4 @@
-#########Importer les modules necessaires########
+#########Importer les modules necessaires########bon  toutou #
 
 
 from tkinter import *
@@ -232,7 +232,6 @@ Canevas.bind('<Button-1>',clic)
 affichagecase()
 
 ###################### FIN ###############################
-
 
 pagedechoix.mainloop()
 root.mainloop()
