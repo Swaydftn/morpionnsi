@@ -44,6 +44,7 @@ def jeu():
                L[0][2]+L[1][2]+L[2][2]==3):
                 print('Gagné joueur 2')
                 joueur2=joueur2+1
+                root.destroy()
                 if joueur2==1:
                     if joueur1==0:
                         mon_label.config(text="0-1")
@@ -79,7 +80,7 @@ def jeu():
                L[0][0]+L[1][0]+L[2][0]==15 or
                L[0][1]+L[1][1]+L[2][1]==15 or
                L[0][2]+L[1][2]+L[2][2]==15):
-                print('Gagné joueur 1')
+                root.destroy()
                 joueur1=joueur1+1
                 print(joueur1,joueur2)
                 if joueur1==1:
@@ -104,6 +105,11 @@ def jeu():
                         mon_label.config(text="3-1")
                     elif joueur2==2:
                         mon_label.config(text="3-2")
+                if joueur1==3:
+                    pagedechoix.destroy()
+                    root.destroy()
+                elif joueur2==3:
+                    pagedechoix.destroy()
                 
 
 
@@ -127,9 +133,6 @@ def jeu():
             global joueur2
             t=Champ1.get()
             Donnej2=Lab1.configure(text='Joueur 2: '+t)
-
-        def afficher(event) :
-            message.configure(text="Score="+"3"+str(joueur2).format(joueur1, joueur2))
 
         def clic(event):
             global L #prend la variable L en global
