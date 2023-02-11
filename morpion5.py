@@ -119,8 +119,10 @@ def jeu():
             global joueur #prend la variable joueur et permet de la modifier si elle n'est pas dans le def
             if joueur==1:
                 joueur=2
+                message.config(text="Au rouge de jouer !",fg="red")
             elif joueur==2:
                 joueur=1
+                message.config(text="Au bleu de jouer !",fg="blue")
             print(joueur)
             return joueur
         def aff1():
@@ -133,93 +135,34 @@ def jeu():
             global joueur2
             t=Champ1.get()
             Donnej2=Lab1.configure(text='Joueur 2: '+t)
+        
 
         def clic(event):
             global L #prend la variable L en global
             aquidejouer() #exécute
             x=event.x
             y=event.y #prend les coordonnées x et y
-            if joueur==1:
-                    if y<200 and y>=0:
-                        if x<200 and x>=0:
-                            if L[0][0]!=1 and L[0][0]!=5:
-                                Canevas.create_rectangle(50,50,150,150,fill='red')
-                                L[0][0]=1
-                        elif x<400 and x>200:
-                            if L[0][1]!=1 and L[0][1]!=5:
-                                Canevas.create_rectangle(250,50,350,150,fill='red')
-                                L[0][1]=1
-                        elif x<=600 and x>400:
-                            if L[0][2]!=1 and L[0][2]!=5:
-                                Canevas.create_rectangle(450,50,550,150,fill='red')
-                                L[0][2]=1
-                    elif y<400 and y>200:
-                        if x<200 and x>=0:
-                            if L[1][0]!=1 and L[1][0]!=5:
-                                Canevas.create_rectangle(50,250,150,350,fill='red')
-                                L[1][0]=1
-                        elif x<400 and x>200:
-                            if L[1][1]!=1 and L[1][1]!=5:
-                                Canevas.create_rectangle(250,250,350,350,fill='red')
-                                L[1][1]=1
-                        elif x<=600 and x>400:
-                            if L[1][2]!=1 and L[1][2]!=5:
-                                Canevas.create_rectangle(450,250,550,350,fill='red')
-                                L[1][2]=1
-                    elif y<=600 and y>400:
-                        if x<200 and x>=0:
-                            if L[2][0]!=1 and L[2][0]!=5:
-                                Canevas.create_rectangle(50,450,150,550,fill='red')
-                                L[2][0]=1
-                        elif x<400 and x>200:
-                            if L[2][1]!=1 and L[2][1]!=5:
-                                Canevas.create_rectangle(250,450,350,550,fill='red')
-                                L[2][1]=1
-                        elif x<=600 and x>400:
-                            if L[2][2]!=1 and L[2][2]!=5:
-                                Canevas.create_rectangle(450,450,550,550,fill='red')
-                                L[2][2]=1
-            elif joueur==2:
-                    if y<200 and y>=0:
-                        if x<200 and x>=0:
-                            if L[0][0]!=1 and L[0][0]!=5:
-                                Canevas.create_oval(50,50,150,150,fill='blue')
-                                L[0][0]=5
-                        elif x<400 and x>200:
-                            if L[0][1]!=1 and L[0][1]!=5:
-                                Canevas.create_oval(250,50,350,150,fill='blue')
-                                L[0][1]=5
-                        elif x<=600 and x>400:
-                            if L[0][2]!=1 and L[0][2]!=5:
-                                Canevas.create_oval(450,50,550,150,fill='blue')
-                                L[0][2]=5
-                    elif y<400 and y>200:
-                        if x<200 and x>=0:
-                            if L[1][0]!=1 and L[1][0]!=5:
-                                Canevas.create_oval(50,250,150,350,fill='blue')
-                                L[1][0]=5
-                        elif x<400 and x>200:
-                            if L[1][1]!=1 and L[1][1]!=5:
-                                Canevas.create_oval(250,250,350,350,fill='blue')
-                                L[1][1]=5
-                        elif x<=600 and x>400:
-                            if L[1][2]!=1 and L[1][2]!=5:
-                                Canevas.create_oval(450,250,550,350,fill='blue')
-                                L[1][2]=5
-                    elif y<=600 and y>400:
-                        if x<200 and x>=0:
-                            if L[2][0]!=1 and L[2][0]!=5:
-                                Canevas.create_oval(50,450,150,550,fill='blue')
-                                L[2][0]=5
-                        elif x<400 and x>200:
-                            if L[2][1]!=1 and L[2][1]!=5:
-                                Canevas.create_oval(250,450,350,550,fill='blue')
-                                L[2][1]=5
-                        elif x<=600 and x>400:
-                            if L[2][2]!=1 and L[2][2]!=5:
-                                Canevas.create_oval(450,450,550,550,fill='blue')
-                                L[2][2]=5
-            print(L)
+        def clic(event):
+            global L #prend la variable L en global
+            aquidejouer() #exécute
+            m=-1
+            n=-1
+            x=event.x
+            y=event.y #prend les coordonnées x et y
+            for j in range(3):
+                m+=1
+                n=-1
+                for i in range(3):
+                    n+=1
+                    if y<i*200+200 and y>=i*200:
+                        if x<j*200+200 and x>=j*200:
+                            if L[m][n]!=1 and L[m][n]!=5:
+                                if joueur==1:
+                                    Canevas.create_rectangle(j*200+50,i*200+50,j*200+150,i*200+150,fill='red')
+                                    L[m][n]=1
+                                elif joueur==2:
+                                    Canevas.create_oval(j*200+50,i*200+50,j*200+150,i*200+150,fill='blue')
+                                    L[m][n]=5
             victoire()
         root = Tk()
         root.title("Morpion")
@@ -245,7 +188,7 @@ def jeu():
         #
 
         #message score
-        message=Label(root, text="joueur1")
+        message=Label(root, text="",fg="blue")
         message.pack(expand = TRUE,side = TOP, fill = BOTH, padx = 5, pady = 5)
 
 
@@ -269,41 +212,9 @@ def jeu():
     bouton2 = Button(pagedechoix, text="1vs1", command = pagejouer).pack()#ferme page choix de mode pour jouer sur page par defaut
     mon_labelscore = Label(pagedechoix,fg="red", text = "Le score est de :")
     mon_labelscore.pack()
-    mon_label = Label(pagedechoix,fg="red", text = "0-0")
+    mon_label = Label(pagedechoix, text = "0-0",fg="blue")
     mon_label.pack()
                              
-
-
-
-
-    
-
     pagedechoix.mainloop()
 
-#def jeuu():
-    #root = Tk()
-    #root.title("Morpion")
-    #canvas
-    #Canevas = Canvas(root,width=600,height=600,bg ='white')
-    #Canevas.pack()
-    #font = Font(family='Liberation Serif', size=200)
-    #Button(root, text="Quit", command=root.destroy).pack()
-
-##########################################################
-##########    Variables ##################################
-##########################################################
-
-#########################################################
-########## Interface graphique ##########################
-##########################################################
-
-###########################################################
-########### Receptionnaire d'évènement ####################
-###########################################################
-
-##########################################################
-############# Programme principal ########################
-##########################################################
 jeu()
-
-###################### FIN ###############################
