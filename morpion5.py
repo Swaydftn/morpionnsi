@@ -16,11 +16,19 @@ nbpion=0
 L=[[0,0,0],
    [0,0,0],
    [0,0,0]]
-
+laplace=-1
 def jeu():
     def niveaufacile():
             global niveau
             niveau=1
+            pagejouerrobot()
+    def niveaumoyen():
+            global niveau
+            niveau=2
+            pagejouerrobot()
+    def niveaudifficile():
+            global niveau
+            niveau=3
             pagejouerrobot()
     
     def pagedeniveau():#ouvre la page du choix des niveau
@@ -28,14 +36,11 @@ def jeu():
         pagedeniveau.title("Choix du niveau")
         pagedeniveau.geometry('300x300')
         bouton3 = Button(pagedeniveau, text="niveau facile", command = niveaufacile).pack()#ouuvre la page pour choisir le niveau
-        #bouton4 = Button(pagedeniveau, text="niveau moyen", command = niveaumoyen).pack()#ferme page choix de mode pour jouer sur page par defaut
-        #bouton5 = Button(pagedeniveau, text="niveau difficile", command = niveaudifficile).pack()
-        mon_labelscore2 = Label(pagedeniveau,fg="red", text = "Le score est de :")
-        mon_labelscore2.pack()
-        mon_label2 = Label(pagedeniveau, text = "0-0",fg="blue")
-        mon_label2.pack()
+        bouton4 = Button(pagedeniveau, text="niveau moyen", command = niveaumoyen).pack()#ferme page choix de mode pour jouer sur page par defaut
+        bouton5 = Button(pagedeniveau, text="niveau difficile", command = niveaudifficile).pack()
         
-
+        
+        
 ################################ Page robot ##################################################################################################################################################################
         
             
@@ -178,12 +183,22 @@ def jeu():
             global joueur1
             global joueur2
             t=Champ1.get()
+        def estcesquecestbon():
+            global laplace
+            if L[0][0]+L[0][1]+L[0][2]==2:
+                #si le resultat =15 le joueur 2 gagne
+            elif L[1][0]+L[1][1]+L[1][2]==2:
+                laplace=1
+            elif L[2][0]+L[2][1]+L[2][2]==2:
+                laplace=2
             
+            
+                
 
         
 
         def cbonoupas(event):
-            global L,nbpion #prend la variable L en global
+            global L,nbpion,laplace #prend la variable L en global
             joueur=2 #exécute
             m=-1
             n=-1
@@ -200,17 +215,52 @@ def jeu():
                                 if L[m][n]!=1 and L[m][n]!=5:
                                     Canevas.create_oval(j*200+50,i*200+50,j*200+150,i*200+150,fill='blue')
                                     L[m][n]=5
+                        
                                     if niveau==1:
                                         pionoupas=0
                                         nbpion=5
-                                        
-                                        while pionoupas<=nbpion:
+                                        a=0
+                                        while pionoupas<=nbpion or a>30:
                                             nombrechoisi=random.randint(0,2)
                                             nombrechoisi2=random.randint(0,2)    
                                             if L[nombrechoisi][nombrechoisi2]!=1 and L[nombrechoisi][nombrechoisi2]!=5:  
                                                 Canevas.create_rectangle(nombrechoisi*200+50,nombrechoisi2*200+50,nombrechoisi*200+150,nombrechoisi2*200+150,fill='red')                                                       
                                                 L[nombrechoisi][nombrechoisi2]=1
                                                 pionoupas=nbpion+1
+                                                a=a+1
+                                                print(a)
+                                    elif niveau==2:
+                                        pionoupas=0
+                                        nbpion=5
+                                        a=0
+                                        estcequecestbon()
+                                        while pionoupas<=nbpion or a>30:
+                                            if laplace==0:
+                                                for i in range(3):
+                                                    Canevas.create_rectangle(laplace*200+50,i*200+50,laplace*200+150,i*200+150,fill='red')
+                                            
+                                                
+                                            nombrechoisi=random.randint(0,2)
+                                            nombrechoisi2=random.randint(0,2)    
+                                            if L[nombrechoisi][nombrechoisi2]!=1 and L[nombrechoisi][nombrechoisi2]!=5:  
+                                                Canevas.create_rectangle(nombrechoisi*200+50,nombrechoisi2*200+50,nombrechoisi*200+150,nombrechoisi2*200+150,fill='red')                                                       
+                                                L[nombrechoisi][nombrechoisi2]=1
+                                                pionoupas=nbpion+1
+                                                a=a+1
+                                                print(a)
+                                    elif niveau==3:
+                                        pionoupas=0
+                                        nbpion=5
+                                        a=0
+                                        while pionoupas<=nbpion or a>30:
+                                            nombrechoisi=random.randint(0,2)
+                                            nombrechoisi2=random.randint(0,2)    
+                                            if L[nombrechoisi][nombrechoisi2]!=1 and L[nombrechoisi][nombrechoisi2]!=5:  
+                                                Canevas.create_rectangle(nombrechoisi*200+50,nombrechoisi2*200+50,nombrechoisi*200+150,nombrechoisi2*200+150,fill='red')                                                       
+                                                L[nombrechoisi][nombrechoisi2]=1
+                                                pionoupas=nbpion+1
+                                                a=a+1
+                                                print(a)
                                     
             
             
@@ -429,13 +479,14 @@ def jeu():
     pagedechoix = tkinter.Tk()
     pagedechoix.title("Choix de mode")
     pagedechoix.geometry('300x300')
+    
     bouton1 = Button(pagedechoix, text="1vsbot", command = pagedeniveau).pack()#ouuvre la page pour choisir le niveau
     bouton2 = Button(pagedechoix, text="1vs1", command = pagejouer).pack()#ferme page choix de mode pour jouer sur page par defaut
     mon_labelscore = Label(pagedechoix,fg="red", text = "Le score est de :")
     mon_labelscore.pack()
     mon_label = Label(pagedechoix, text = "0-0",fg="blue")
     mon_label.pack()
-                             
+                           
     pagedechoix.mainloop()
 
 jeu()
