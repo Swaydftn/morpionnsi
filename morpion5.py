@@ -184,8 +184,9 @@ def jeu():
             global joueur2
             t=Champ1.get()
         def estcesquecestbon():
-            global laplace
+            global laplace,L
             if L[0][0]+L[0][1]+L[0][2]==2:
+                laplace=0
                 #si le resultat =15 le joueur 2 gagne
             elif L[1][0]+L[1][1]+L[1][2]==2:
                 laplace=1
@@ -220,24 +221,29 @@ def jeu():
                                         pionoupas=0
                                         nbpion=5
                                         a=0
-                                        while pionoupas<=nbpion or a>30:
+                                        while pionoupas<=nbpion and a<30:
                                             nombrechoisi=random.randint(0,2)
-                                            nombrechoisi2=random.randint(0,2)    
+                                            nombrechoisi2=random.randint(0,2) 
+                                            a=a+1
                                             if L[nombrechoisi][nombrechoisi2]!=1 and L[nombrechoisi][nombrechoisi2]!=5:  
                                                 Canevas.create_rectangle(nombrechoisi*200+50,nombrechoisi2*200+50,nombrechoisi*200+150,nombrechoisi2*200+150,fill='red')                                                       
                                                 L[nombrechoisi][nombrechoisi2]=1
                                                 pionoupas=nbpion+1
-                                                a=a+1
-                                                print(a)
+                                                
+                                                
+                                                
                                     elif niveau==2:
                                         pionoupas=0
                                         nbpion=5
                                         a=0
-                                        estcequecestbon()
-                                        while pionoupas<=nbpion or a>30:
+                                        estcesquecestbon()
+                                        while pionoupas<=nbpion and a<30:
                                             if laplace==0:
+                                                a=a+1
                                                 for i in range(3):
                                                     Canevas.create_rectangle(laplace*200+50,i*200+50,laplace*200+150,i*200+150,fill='red')
+                                                    a=a+1
+                            
                                             
                                                 
                                             nombrechoisi=random.randint(0,2)
@@ -268,7 +274,7 @@ def jeu():
             
                                 
                                           
-            root.after(1000,victoire)
+            root.after(10,victoire)
         root = Tk()
         root.title("Morpion")
         #canvas
